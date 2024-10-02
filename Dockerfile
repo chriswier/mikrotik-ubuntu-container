@@ -2,6 +2,7 @@ FROM ubuntu:noble
 LABEL maintainer="Chris Wieringa <chris@wieringafamily.com>"
 
 # Based off of: https://gist.github.com/pi0/a7f734a69d34cc3cb2d67ec862cfa3ac
+# Reference: https://forum.mikrotik.com/viewtopic.php?t=186936
 
 # Set versions and platforms
 ARG BUILDDATE=20241002-1
@@ -16,7 +17,9 @@ SHELL ["/bin/bash", "-c"]
 
 # Start with some base packages and APT setup
 RUN apt update -y && \
+    DEBIAN_FRONTEND=noninteractive apt upgrade -y && \
     DEBIAN_FRONTEND=noninteractive apt install -y \
+    -o APT::Install-Suggests=0 -o APT::Install-Recommends=0 \
     ca-certificates \
     curl \
     gnupg \
@@ -25,7 +28,7 @@ RUN apt update -y && \
     iputils-arping \
     iputils-ping \
     iputils-tracepath \
-    iproute2 \
+    #iproute2 \
     locales \
     netcat-openbsd \
     nmap \
