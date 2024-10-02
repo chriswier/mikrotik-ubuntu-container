@@ -1,0 +1,3 @@
+*.tar
+.docker-config/*
+output/*
